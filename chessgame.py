@@ -1,5 +1,7 @@
 import chess
 import math
+from os import system
+from time import sleep
 
 
 def main():
@@ -12,13 +14,25 @@ def main():
     choice = int(input('Chose: '))
 
     while playing:
+        print(board)
         # Check if is finisihed
         if choice:
-            bestmove(board, 1)
-            # Human play
+            # bestmove(board, chess.WHITE)
+            human_play(board)
         else:
-            # Human play
-            bestmove(board, 0)
+            human_play(board)
+            # bestmove(board, chess.BLACK)
+        system('clear')
+
+
+def human_play(board):
+    human_move = input('Human move: ')
+    move = chess.Move.from_uci(human_move)
+    if board.is_legal(move):
+        board.push(move)
+    else:
+        print('Invalid move!')
+        sleep(2)
 
 
 def bestmove(board, white):
